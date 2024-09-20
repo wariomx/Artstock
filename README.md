@@ -12,12 +12,12 @@ Properties of art NFT:
 - Location (blank till guardian confirm): empty or string
 - Author: string
 - Guardian: empty or wallet address
+- Guardian Company name: empty or string
+- Guardian Company LEIR: empty or string
+- Guardian Website to verify: empty or string
 - CuratedBy: empty or wallet address of curator
 
-Properties of soulbound guardian NFT:
-- Company name
-- Company LEIR
-- Website to verify
+If time: Properties of guardian in soulbound NFT.
 
 Functions needed:
 - Mint NFT (user; becomes holder)
@@ -28,6 +28,7 @@ Functions needed:
 - Confirm receipt (buyer) -> redeem NFT after delivery of physical asset by guardian
 
 V1: Buyer needs to trust curator or arrange own curator off-chain
+
 V2: Second curator can be requested on platform and will attest to the NFT
 
 Need to think about escrow time / paying for prolongment.
