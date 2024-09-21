@@ -12,6 +12,7 @@ import { DynamicWagmiConnector } from "@dynamic-labs/wagmi-connector";
 // import{ DynamicMint} from "./mint";
 import { mainnet } from "viem/chains";
 import { http } from "viem";
+import MintArtToken from "./mintArt"
 
 const queryClient = new QueryClient();
 
@@ -75,6 +76,7 @@ export default function ArtTokenization() {
                 <p>Create and Validate Roles Here</p>
                 <DynamicWidget />
                 <Input onChange={handleInput} value={address} />
+                <MintArtToken/>
               </div>
             </DynamicWagmiConnector>
           </QueryClientProvider>

@@ -9,7 +9,7 @@ const uploadFilePinata = async (fileToUpload) => {
       const uploadOptions = {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${process.env.PUBLIC_PINATA_API}`,
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_PINATA_API}`,
         },
         body: formData,
       };
