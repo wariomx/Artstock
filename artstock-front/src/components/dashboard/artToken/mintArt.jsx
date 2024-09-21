@@ -2,17 +2,25 @@ import { Button } from "@/components/ui/button";
 import { abi } from "../../../../utils/abi";
 import { useWriteContract } from "wagmi";
 
-export default function Curator() {
+export default function Buyer({ address }) {
   const { writeContract } = useWriteContract();
-  const handleCurator = async () => {
+
+  const handleAssignBuyer = async () => {
     console.log(address);
     console.log(abi);
     try {
       const result = writeContract({
         abi,
         address: "0xdd9Fa9ddD68dd5aA023149Df488B4985ADC0e667",
-        functionName: "assignCurator",
-        args: [address, "wario", "location", "specialization"],
+        functionName: "mintArt",
+        args: [
+          "wario",
+          "description",
+          "image",
+          1,
+          "0xFD0Bb0b9F3B236F211033BCa5De04Cc0531B0250",
+          88,
+        ],
       });
       console.log(result);
     } catch (error) {
@@ -22,8 +30,11 @@ export default function Curator() {
 
   return (
     <div>
-      <Button className="m-3  bg-green-200 text-black  hover:bg-green-50" onClick={handleCurator}>
-        Assign Curator Role
+      <Button
+        className="m-3 bg-green-200 text-black  hover:bg-green-50"
+        onClick={handleAssignBuyer}
+      >
+        Assign Buyer Role
       </Button>
     </div>
   );

@@ -3,8 +3,9 @@ import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Roles from "@/components/dashboard/roles";
 import { Button } from "@/components/ui/button";
-import ArtToken from "@/components/dashboard/artToken";
-import ArtDeFi from "@/components/dashboard/artDefi"
+import ArtToken from "@/components/dashboard/artToken/index";
+import ArtDeFi from "@/components/dashboard/artDefi";
+
 
 export default function Dashboard() {
 

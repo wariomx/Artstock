@@ -1,11 +1,6 @@
 import MaxWidthWrapper from "@/components/MaxWidhWrapper";
-import Buyer from "./Buyer";
-import Curator from "./Curator";
-import Guardian from "./Guardian";
-import Seller from "./Seller";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
-
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   DynamicContextProvider,
@@ -49,7 +44,7 @@ const evmNetworks = [
   },
 ];
 
-export default function Roles() {
+export default function ArtTokenization() {
   const [address, setAddress] = useState();
 
   const handleInput = (event) => {
@@ -75,15 +70,11 @@ export default function Roles() {
                   Tokenize and sell your artworks on our marketplace
                 </p>
                 <div className="mb-8"></div>
-                <img src="" />
+                <img src="/tokenization.png" className="w-1/2" />
+                Create and Mint Art Token Here
                 <p>Create and Validate Roles Here</p>
                 <DynamicWidget />
-
                 <Input onChange={handleInput} value={address} />
-                <Buyer address={address} value={address} />
-                <Guardian address={address} value={address} />
-                <Curator address={address} value={address} />
-                <Seller address={address} value={address} />
               </div>
             </DynamicWagmiConnector>
           </QueryClientProvider>
