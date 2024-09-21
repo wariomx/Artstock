@@ -1,10 +1,10 @@
 import MaxWidthWrapper from "@/components/MaxWidhWrapper";
 
-export default function ArtTokenization() {
+export default function ArtDeFi() {
     return (
         <MaxWidthWrapper>
             <img src="/tokenization.png" className="w-1/2"/>
-            Create and Mint Art Token Here
+            Get Liquidity for your Art
         </MaxWidthWrapper>
     )
 }

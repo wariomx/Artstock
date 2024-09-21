@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Roles from "@/components/dashboard/roles";
 import { Button } from "@/components/ui/button";
 import ArtToken from "@/components/dashboard/artToken";
+import ArtDeFi from "@/components/dashboard/artDefi"
 
 export default function Dashboard() {
   const [tabsVisible, setTabsVisible] = useState(true);
@@ -24,6 +25,9 @@ export default function Dashboard() {
               <div className="text-center px-4 py-2 h-1/3 border w-full">
                 <TabsTrigger value="art">Art Tokenization</TabsTrigger>
               </div>
+              <div className="text-center px-4 py-2 h-1/3 border w-full">
+                <TabsTrigger value="defi">Art DeFi</TabsTrigger>
+              </div>
 
               <Button
                 onClick={handleTab}
@@ -40,6 +44,9 @@ export default function Dashboard() {
           </TabsContent>
           <TabsContent value="art">
             <ArtToken />
+          </TabsContent>
+          <TabsContent value="defi">
+            <ArtDeFi/>
           </TabsContent>
         </div>
       </Tabs>

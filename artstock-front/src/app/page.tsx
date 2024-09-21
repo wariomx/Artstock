@@ -37,8 +37,8 @@ export default function Home() {
       <section className="bg-custom-white py-24 text-custom-black">
         <MaxWidthWrapper className="flex flex-col items-center gap-16 sm:gap-32">
           <div className="flex flex-col lg:flex-row items-center gap-4 sm:gap-6">
-            <h2 className="order-1 mt-2 tracking-tight text-center text-balance !leading-tight font-bold text-5xl md:text-6xl">
-              Working with Bitcoin Proof of Work Security <br/> - Rootstock -
+            <h2 className="order-1 mt-2 tracking-tight text-center text-balance !leading-tight font-bold text-5xl md:text-6xl text-green-500">
+              Working with Bitcoin Proof of Work Security <br /> - Rootstock -
             </h2>
             <video autoPlay loop muted className="w-1/2 h-auto">
               <source src="bit.webm" type="video/webm" />
@@ -54,12 +54,16 @@ export default function Home() {
             <h1 className="text-3xl text-green-500">TEAM</h1>
             <div className="flex pt-[20px] items-start justify-between mr-10 ml-10 pl-10 pr-10">
               <div className="">
-                <img />
+              <div className="w-20">
+                  <img src="wario.jpg" />
+                </div>
                 <p className="font-bold text-green-500">Mario</p>
-                <p >Web3 Dev</p>
+                <p>Web3 Dev</p>
               </div>
               <div className="mr-3">
-                <img />
+                <div className="w-20">
+                  <img src="remco.jpg" />
+                </div>
                 <p className="font-bold text-green-500">Remco</p>
                 <p>Junior Dev</p>
               </div>
