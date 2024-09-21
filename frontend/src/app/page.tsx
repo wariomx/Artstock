@@ -14,6 +14,7 @@ import {
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { http } from 'viem';
 import { mainnet } from 'viem/chains';
+import Dynamic from './components/Dynamic';
 
 const config = createConfig({
   chains: [mainnet],
@@ -63,6 +64,7 @@ export default function Home() {
                   <DynamicWidget />
                 </div>
                 <AccountInfo />
+                <Dynamic/>
               </div>
             </DynamicWagmiConnector>
           </QueryClientProvider>
@@ -81,6 +83,7 @@ function AccountInfo() {
         </p>
         <p className="mb-2">Wagmi address: <span className="font-mono">{address}</span></p>
         <p>Wagmi network: <span className="font-bold">{chain?.id}</span></p>
+
       </div>
   );
 }
