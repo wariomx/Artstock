@@ -1,41 +1,70 @@
 import { Button } from "@/components/ui/button";
 import { abi } from "../../../../utils/abi";
 import { useWriteContract } from "wagmi";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
 
-export default function MintArtToken({ address }) {
+export default function CurateArt() {
   const { writeContract } = useWriteContract();
+  const [tokenId, setTokenId] = useState(0);
+  const [isOpen, setIsOpen] = useState(false); 
 
-  const handleMintToken = async () => {
-    console.log(address);
-    console.log(abi);
+  const handleInputTokenId = (event) => {
+    setTokenId(event.target.value);
+  };
+
+  const handleCurateArt = async () => {
     try {
-      const result = writeContract({
+      const result = await writeContract({
         abi,
         address: "0xdd9Fa9ddD68dd5aA023149Df488B4985ADC0e667",
-        functionName: "mintArt",
-        args: [
-          "wario",
-          "description",
-          "image",
-          1,
-          "0xFD0Bb0b9F3B236F211033BCa5De04Cc0531B0250",
-          88,
-        ],
+        functionName: "curate",
+        args: [tokenId],
       });
       console.log(result);
+      setIsOpen(false); // Close the modal after successful deposit
     } catch (error) {
-      console.log(error);
+      console.error("Error during physical deposit:", error);
     }
   };
 
   return (
     <div>
+      {/* Button to open the modal */}
       <Button
-        className="m-3 bg-green-200 text-black  hover:bg-green-50"
-        onClick={handleMintToken}
+        onClick={() => setIsOpen(true)}
+        className="bg-green-500 hover:bg-green-50 text-black m-2"
       >
-        Curate Art
+        Open Curate Art Modal
       </Button>
+
+      {/* Modal */}
+      {isOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-90">
+          <div className="bg-black p-6 rounded-lg shadow-lg">
+            <button 
+              className="absolute top-2 right-2 text-white" 
+              onClick={() => setIsOpen(false)}
+            >
+              &times; {/* Close button */}
+            </button>
+            <div className="flex mb-4">
+              <p className="mr-2">Token Id:</p>
+              <Input 
+                onChange={handleInputTokenId} 
+                value={tokenId} 
+                type="number" 
+              />
+            </div>
+            <Button
+              className="bg-green-200 text-black hover:bg-green-50"
+              onClick={handleCurateArt}
+            >
+              Curate Art
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

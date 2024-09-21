@@ -68,7 +68,7 @@ export default function MintArtToken() {
       {/* Botón para abrir el modal */}
       <Button
         onClick={() => setIsOpen(true)}
-        className="bg-green-500 hover:bg-green-50 text-black"
+        className="bg-green-500 hover:bg-green-50 text-black m-2"
       >
         Open Mint Modal
       </Button>

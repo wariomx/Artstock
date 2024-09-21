@@ -9,10 +9,14 @@ import {
 import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
 import { createConfig, WagmiProvider } from "wagmi";
 import { DynamicWagmiConnector } from "@dynamic-labs/wagmi-connector";
-// import{ DynamicMint} from "./mint";
 import { mainnet } from "viem/chains";
 import { http } from "viem";
 import MintArtToken from "./mintArt"
+import PhysicalDeposit from "./physicalDeposit";
+import CurateArt from "./curate"
+import CreateEscrow from "./createEscrow"
+import DepositPayment from "./depositPayment";
+import CompleteEscrow from "./completeEscrow";
 
 const queryClient = new QueryClient();
 
@@ -72,11 +76,16 @@ export default function ArtTokenization() {
                 </p>
                 <div className="mb-8"></div>
                 <img src="/tokenization.png" className="w-1/2" />
-                Create and Mint Art Token Here
-                <p>Create and Validate Roles Here</p>
+               
+                <p> Create and Mint Art Token Here</p>
                 <DynamicWidget />
                 <Input onChange={handleInput} value={address} />
                 <MintArtToken/>
+                <PhysicalDeposit/>
+                <CurateArt/>
+                <CreateEscrow/>
+                <DepositPayment/>
+                <CompleteEscrow/>
               </div>
             </DynamicWagmiConnector>
           </QueryClientProvider>

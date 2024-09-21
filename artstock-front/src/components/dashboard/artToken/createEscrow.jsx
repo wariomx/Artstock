@@ -4,82 +4,105 @@ import { useWriteContract } from "wagmi";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 
-
-export default function CreateEscrow() {
+export default function MintArtToken() {
   const { writeContract } = useWriteContract();
+  const [isOpen, setIsOpen] = useState(false);
+  const [buyer, setBuyer] = useState(""); //address
+  const [tokenId, setTokenId] = useState(0); //uint256
+  const [price, setPrice] = useState(0); //uint256
+  const [curator, setCurator] = useState(""); //address
+  const [guardian, setGuardian] = useState(""); //address
 
-  const [name, setName] = useState();
-  const [description, setDescription] = useState();
-  const [image, setImage] = useState();
-  const [price, setPrice] = useState();
-  const [nftOwner, setNftOwner] = useState();
-  const [tokenId, setTokenId] = useState();
-
-  const handleInputName = (event) => {
-    event.preventDefault();
-    setName(event.target.value);
-  };
-
-  const handleInputDescription = (event) => {
-    event.preventDefault();
-    setDescription(event.target.value);
-  };
-  const handleInputImage = (event) => {
-    event.preventDefault();
-    setImage(event.target.value);
-    
-  };
-
- 
-
-  const handleInputPrice = (event) => {
-    event.preventDefault();
-    setPrice(event.target.value);
-  };
-  const handleInputNftOwner = (event) => {
-    event.preventDefault();
-    setNftOwner(event.target.value);
+  const handleInputBuyer = (event) => {
+    setBuyer(event.target.value);
   };
 
   const handleInputTokenId = (event) => {
-    event.preventDefault();
     setTokenId(event.target.value);
   };
 
-  const handleMintToken = async () => {
-    console.log(address);
-    console.log(abi);
+  const handleInputPrice = (event) => {
+    setPrice(event.target.value);
+  };
+
+  const handleSetCurator = (event) => {
+    setCurator(event.target.value);
+  };
+
+  const handleSetGuardian = (event) => {
+    setGuardian(event.target.value);
+  };
+
+  const handleCreateEscrow = async () => {
     try {
-      const result = writeContract({
+      const result = await writeContract({
         abi,
         address: "0xdd9Fa9ddD68dd5aA023149Df488B4985ADC0e667",
-        functionName: "mintArt",
-        args: [name, description, image, price, nftOwner, tokenId],
+        functionName: "createEscrow",
+        args: [buyer, tokenId, price, curator, guardian],
       });
       console.log(result);
+      setIsOpen(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   return (
     <div>
-      <div className="flex">
-        <p>Name: </p>
-        <Input onChange={handleInputName} value={name} />
-      </div>
-      <Input onChange={handleInputDescription} value={description} />
-      <Input onChange={handleInputImage} value={image} />
-      <Input onChange={handleInputPrice} value={price} />
-      <Input onChange={handleInputNftOwner} value={nftOwner} />
-      <Input onChange={handleInputTokenId} value={tokenId} />
-
+      {/* Botón para abrir el modal */}
       <Button
-        className="m-3 bg-green-200 text-black  hover:bg-green-50"
-        onClick={handleMintToken}
+        onClick={() => setIsOpen(true)}
+        className="bg-green-500 hover:bg-green-50 text-black m-2"
       >
-        Create Escrow
+        Open Create Escrow Modal
       </Button>
+
+      {/* Modal manual */}
+      {isOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-90">
+          <div className="bg-black p-6 rounded-lg shadow-lg">
+            <div className="flex flex-col space-y-4">
+              <div className="flex">
+                <p>Buyer: </p>
+                <Input onChange={handleInputBuyer} value={buyer} />
+              </div>
+              <div className="flex">
+                <p>Token Id: </p>
+                <Input onChange={handleInputTokenId} value={tokenId} />
+              </div>
+
+              <div className="flex">
+                <p>Price:</p>
+                <Input onChange={handleInputPrice} value={price} />
+              </div>
+              <div className="flex">
+                <p>Curator:</p>
+                <Input onChange={handleSetCurator} value={curator} />
+              </div>
+              <div className="flex">
+                <p>Guardian:</p>
+                <Input onChange={handleSetGuardian} value={guardian} />
+              </div>
+
+              <div className="flex justify-between">
+                <Button
+                  className="bg-green-200 text-black hover:bg-green-50"
+                  onClick={handleCreateEscrow}
+                >
+                  Create Escrow
+                </Button>
+                <Button
+                  className="bg-red-200 text-black hover:bg-red-50"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -5,6 +5,7 @@ import Roles from "@/components/dashboard/roles";
 import { Button } from "@/components/ui/button";
 import ArtToken from "@/components/dashboard/artToken/index";
 import ArtDeFi from "@/components/dashboard/artDefi";
+import MarketPlace from "@/components/dashboard/marketPlace"
 
 
 export default function Dashboard() {
@@ -29,7 +30,7 @@ export default function Dashboard() {
                 <TabsTrigger value="art">Art Tokenization</TabsTrigger>
               </div>
               <div className="text-center px-4 py-2 h-1/3 border w-full">
-                <TabsTrigger value="defi">Art DeFi</TabsTrigger>
+                <TabsTrigger value="marketplace">Market-Place</TabsTrigger>
               </div>
 
               <Button
@@ -48,8 +49,8 @@ export default function Dashboard() {
           <TabsContent value="art">
             <ArtToken />
           </TabsContent>
-          <TabsContent value="defi">
-            <ArtDeFi/>
+          <TabsContent value="marketplace">
+            <MarketPlace/>
           </TabsContent>
         </div>
       </Tabs>
