@@ -1,9 +1,8 @@
 # Artstock
 
-Artstock will revolutionize the art market by tokenizing physical art: a more transparent and secure way to buy and sell art. Artstock makes possible the tracking of provenance and authenticity of art pieces through curators, therefore making it easier to verify the authenticity of art pieces. Artstock also features a secondary market for art pieces, allowing for the trading of art pieces in a secure and transparent manner.
+Artstock will revolutionize the art market by tokenizing physical art: a more transparent and secure way to buy and sell art. Artstock makes possible the tracking of provenance and authenticity of art pieces through curators, therefore making it easier to verify the history of artworks. Artstock also features a secondary market for art, allowing for the trading of art pieces in a secure and transparent manner. The physical items have to be held by a guardian in order to go through careful curation, before they can be traded on our market using an escrow smart contract. The token can be redeemed for physical delivery at any time.
 
-Tech stack: Build on the Rootstock blockhain. Login (both web2 and web3) through Dynamic. Smart contracts in Solidity. Frontend in React. Backend in Node.js.  
-
+Tech stack: Build on the Rootstock blockchain to get the security and liquidity of Bitcoin, while having the smart contrtact possibilities of an EVM. Login (both web2 and web3) are powered by Dynamic to make the user experience easy and screen for sanctioned wallets. Smart contracts in Solidity. Frontend in React with Next.js. 
 
 ## Raw sketch
 Target users:
@@ -41,10 +40,10 @@ Functions needed:
    4.  <a href="https://app.dynamic.xyz/dashboard/configurations" target="_blank">Enable Chainalysis</a>: "Block access to sanctioned wallets"
    5. <a href="https://app.dynamic.xyz/dashboard/security" target="_blank">Security settings</a>: Under "Domains" enable "CORS Origin" (for localhost add http(s) and port as well) 
    6. <a href="https://app.dynamic.xyz/dashboard/security" target="_blank">Security settings</a>: <span style="color:red">Enable Account MFA</span>
-4. Run `npm run start` in the root directory
-4. Open `localhost:3000` in your browser
-5. Login by either an e-mail address/social media or by connecting your wallet (e.g. Metamask) to the RSK testnet
-6. <span style="color:red">You can now mint an NFT, confirm the deposit of a physical asset, validate the properties of the art piece, offer the art piece for sale, deposit crypto in escrow, confirm receipt and redeem the NFT</span>
+4. Run `npm run start` in the root directory 
+5. Open `localhost:3000` in your browser
+6. Login by either an e-mail address/social media or by connecting your wallet (e.g. Metamask) to the RSK testnet
+7. <span style="color:red">You can now mint an NFT, confirm the deposit of a physical asset, validate the properties of the art piece, offer the art piece for sale, deposit crypto in escrow, confirm receipt and redeem the NFT</span>
 
 ## Future development
 - V1: Buyer needs to trust curator or arrange own curator off-chain<br>
@@ -61,4 +60,17 @@ Functions needed:
 - Add the properties of a guardian/curator in a soulbound NFT.
 
 ## Todo before submission
+- Fill frontend with images
+- Add forms for all smart contract interactions and connect to the blockchain calls
+  - Mint NFT (mintArt)
+  - depositPayment
+  - Test all smart contract interactions
+- Add listing page for all NFTs with price
+- Fill frontend with text 
 - Rename NEXT_PUBLIC_DYNAMIC_ENVIRONMENT_ID to DYNAMIC_ENVIRONMENT_ID (in code, env and above in readme)
+- Pinata IPFS
+- Check bounty requirements
+- Finish readme
+- Open up Github repo
+- Prepare submission form
+- Pitch desk Rootstock & Dynamic

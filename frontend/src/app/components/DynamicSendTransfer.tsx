@@ -21,7 +21,7 @@ export const DynamicSendTransfer: FC = () => {
         const address = formData.get("address") as string;
         const amount = formData.get("amount") as string;
 
-        // const publicClient = await primaryWallet.getPublicClient();
+        const publicClient = await primaryWallet.getPublicClient();
         const walletClient = await primaryWallet.getWalletClient();
 
         const transaction = {
