@@ -23,6 +23,26 @@ const config = createConfig({
     },
 });
 
+// Setting up list of evmNetworks
+const evmNetworks = [
+    {
+        blockExplorerUrls: ['https://explorer.rootstock.io/'],
+        chainId: 31,
+        chainName: 'Rootstock Testnet',
+        iconUrls: ['https://pbs.twimg.com/profile_images/1592915327343624195/HPPSuVx3_400x400.jpg'],
+        name: 'Rootstock',
+        nativeCurrency: {
+            decimals: 18,
+            name: 'tRBTC',
+            symbol: 'tRBTC',
+        },
+        networkId: 8100,
+
+        rpcUrls: ['https:­//p­ubl­ic-­nod­e.t­est­net.rsk.co'],
+        vanityName: 'rBTC Testnet',
+    }
+];
+
 const queryClient = new QueryClient();
 
 export default function App() {
@@ -31,6 +51,7 @@ export default function App() {
             settings={{
                 environmentId: '7c8815fc-3790-4b2e-a05c-1677116efe9f', // TODO remove
                 walletConnectors: [EthereumWalletConnectors],
+                overrides: { evmNetworks },
             }}
         >
             <WagmiProvider config={config}>
