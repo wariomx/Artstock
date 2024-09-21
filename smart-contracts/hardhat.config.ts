@@ -61,7 +61,8 @@ const config: HardhatUserConfig = {
         rskTestnet: {
             url: RSK_TESTNET_RPC_URL,
             chainId: 31,
-            gasPrice: 60000000,
+            gasPrice: 68000000,
+            gas: 6800000, 
             accounts: [PRIVATE_KEY]
         },
     },

@@ -17,7 +17,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="relative flex w-full h-full">
+    <div className="relative flex w-full h-full bg-black">
       
       <Tabs defaultValue="roles" className="flex w-full h-full">
         {tabsVisible && (

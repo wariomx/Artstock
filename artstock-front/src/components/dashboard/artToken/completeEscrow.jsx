@@ -13,11 +13,15 @@ export default function PhysicalDeposit() {
     setTokenId(event.target.value);
   };
 
+  const contractSmart = process.env.NEXT_PUBLIC_SMART_CONTRACT;
+
+  
+
   const handleCompleteEscrow = async () => {
     try {
       const result = await writeContract({
         abi,
-        address: "0xdd9Fa9ddD68dd5aA023149Df488B4985ADC0e667",
+        address: contractSmart,
         functionName: "completeEscrow",
         args: [tokenId],
       });

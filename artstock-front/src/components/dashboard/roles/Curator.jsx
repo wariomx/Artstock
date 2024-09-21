@@ -4,13 +4,15 @@ import { useWriteContract } from "wagmi";
 
 export default function Curator() {
   const { writeContract } = useWriteContract();
+  const contractSmart = process.env.NEXT_PUBLIC_SMART_CONTRACT 
+
   const handleCurator = async () => {
     console.log(address);
     console.log(abi);
     try {
       const result = writeContract({
         abi,
-        address: "0xdd9Fa9ddD68dd5aA023149Df488B4985ADC0e667",
+        address: contractSmart,
         functionName: "assignCurator",
         args: [address, "wario", "location", "specialization"],
       });

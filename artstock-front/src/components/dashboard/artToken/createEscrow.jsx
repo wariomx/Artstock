@@ -33,11 +33,13 @@ export default function MintArtToken() {
     setGuardian(event.target.value);
   };
 
+  const contractSmart = process.env.NEXT_PUBLIC_SMART_CONTRACT;
+
   const handleCreateEscrow = async () => {
     try {
       const result = await writeContract({
         abi,
-        address: "0xdd9Fa9ddD68dd5aA023149Df488B4985ADC0e667",
+        address: contractSmart,
         functionName: "createEscrow",
         args: [buyer, tokenId, price, curator, guardian],
       });
