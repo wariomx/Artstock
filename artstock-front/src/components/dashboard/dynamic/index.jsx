@@ -6,7 +6,7 @@ import {
 import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
 import { createConfig, WagmiProvider } from "wagmi";
 import { DynamicWagmiConnector } from "@dynamic-labs/wagmi-connector";
-import MintToken from "./mint";
+import{ DynamicMint} from "./mint";
 import { mainnet } from "viem/chains";
 import { http } from "viem";
 
@@ -61,7 +61,7 @@ export default function DynamicConnectComponent() {
               <div className="mb-8">
                 <DynamicWidget />
               </div>
-              <MintToken />
+              <DynamicMint/>
             </div>
           </DynamicWagmiConnector>
         </QueryClientProvider>
