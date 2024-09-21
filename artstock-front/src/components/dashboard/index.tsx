@@ -7,6 +7,7 @@ import ArtToken from "@/components/dashboard/artToken";
 import ArtDeFi from "@/components/dashboard/artDefi"
 
 export default function Dashboard() {
+
   const [tabsVisible, setTabsVisible] = useState(true);
 
   const handleTab = async () => {
@@ -15,6 +16,7 @@ export default function Dashboard() {
 
   return (
     <div className="relative flex w-full h-full">
+      
       <Tabs defaultValue="roles" className="flex w-full h-full">
         {tabsVisible && (
           <div className="w-1/6 h-screen sticky top-0 flex-shrink-0">
