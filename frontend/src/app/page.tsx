@@ -15,6 +15,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { http } from 'viem';
 import { mainnet } from 'viem/chains';
 import Dynamic from './components/Dynamic';
+import MintToken from './components/Contracts/mintToken.jsx'
 
 const config = createConfig({
   chains: [mainnet],
@@ -65,6 +66,7 @@ export default function Home() {
                 </div>
                 <AccountInfo />
                 <Dynamic/>
+                <MintToken/>
               </div>
             </DynamicWagmiConnector>
           </QueryClientProvider>
