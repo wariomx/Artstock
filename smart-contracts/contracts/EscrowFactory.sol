@@ -10,6 +10,7 @@ contract NFTMarketplaceEscrow is MockERC721, Roles {
 		string name;
 		string description;
 		string image;
+        uint256 price;
 		bool isDeposited;
 		bool isCurated;
 	}
@@ -97,6 +98,7 @@ contract NFTMarketplaceEscrow is MockERC721, Roles {
 		string memory _name,
 		string memory _description,
         string memory _image,
+        uint256 _price,
 		address to,
 		uint256 tokenId
 	) external {
@@ -106,6 +108,7 @@ contract NFTMarketplaceEscrow is MockERC721, Roles {
 			name: _name,
 			description: _description,
             image: _image,
+            price: _price,
 			isDeposited: false,
 			isCurated: false
 		});
@@ -211,4 +214,61 @@ contract NFTMarketplaceEscrow is MockERC721, Roles {
 
 		emit EscrowCancelled(tokenId, escrow.seller, escrow.guardian);
 	}
+
+    struct Pool {
+        uint256 totalLiquidity;
+        mapping(address => uint256) liquidityProviders;
+    }
+
+    struct Loan {
+        uint256 amount;
+        uint256 interestRate; // E.g. 5 for 5%
+        uint256 dueDate;
+        bool isActive;
+    }
+
+
+    mapping(address => Pool) public liquidityPools; // Mapping of liquidity pools pers address
+    mapping(uint256 => Loan) public loans; //Mapping for loans based on tokenId
+
+    event LiquidityAdded(address indexed provider, uint256 amount);
+    event LoanRequested(uint256 indexed tokenId, uint256 amount, uint256 dueDate);
+
+    /**
+     * @dev Allows users to add liquidity to their own pool.
+     */
+    function addLiquidity(uint256 _amount) external payable {
+        require(msg.value == _amount, "Incorrect Ether amount sent");
+        
+        Pool storage pool = liquidityPools[msg.sender];
+        pool.totalLiquidity += _amount;
+        pool.liquidityProviders[msg.sender] += _amount;
+
+        emit LiquidityAdded(msg.sender, _amount);
+    }
+
+    /**
+     * @dev Allows NFT holders to request a loan using their art NFT as collateral.
+     */
+    function askLoan(uint256 _amount, uint256 _tokenId, uint256 _interestRate, uint256 _durationDays) external {
+        require(ownerOf(_tokenId) == msg.sender, "You are not the owner of this NFT");
+        require(artCollection[_tokenId].isDeposited, "Art must be deposited");
+
+        Loan storage loan = loans[_tokenId];
+        require(!loan.isActive, "Loan already active");
+
+        uint256 dueDate = block.timestamp + (_durationDays * 1 days);
+        loans[_tokenId] = Loan({
+            amount: _amount,
+            interestRate: _interestRate,
+            dueDate: dueDate,
+            isActive: true
+        });
+
+        emit LoanRequested(_tokenId, _amount, dueDate);
+        
+        // Optionally, transfer funds to the borrower
+        (bool success, ) = msg.sender.call{value: _amount}("");
+        require(success, "Loan transfer failed");
+    }
 }
