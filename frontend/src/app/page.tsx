@@ -3,17 +3,20 @@
 import {
   DynamicContextProvider,
   DynamicWidget,
+  useDynamicContext
 } from '@dynamic-labs/sdk-react-core';
-import { EthereumWalletConnectors } from '@dynamic-labs/ethereum';
+import { EthereumWalletConnectors, isEthereumWallet } from '@dynamic-labs/ethereum';
 import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector';
 import {
   createConfig,
   WagmiProvider,
   useAccount,
+  useWaitForTransactionReceipt
 } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { http } from 'viem';
+import { http, parseEther } from 'viem';
 import { mainnet } from 'viem/chains';
+import { FC, FormEventHandler, useState } from "react";
 import Dynamic from './components/Dynamic';
 
 const config = createConfig({
@@ -23,6 +26,9 @@ const config = createConfig({
     [mainnet.id]: http(),
   },
 });
+
+
+import { useSimulateContract, useWriteContract } from 'wagmi'
 
 // Setting up list of evmNetworks
 const evmNetworks = [
@@ -42,6 +48,97 @@ const evmNetworks = [
     vanityName: 'rBTC Testnet',
   }
 ];
+
+
+
+export const SendTransactionSection: FC = () => {
+    const { primaryWallet } = useDynamicContext();
+
+    const [txnHash, setTxnHash] = useState("");
+
+    if (!primaryWallet || !isEthereumWallet(primaryWallet)) return null;
+
+    const onSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(event.currentTarget);
+
+        const address = formData.get("address") as string;
+        const amount = formData.get("amount") as string;
+
+        const publicClient = await primaryWallet.getPublicClient();
+        const walletClient = await primaryWallet.getWalletClient();
+
+        const transaction = {
+            to: address,
+            value: amount ? parseEther(amount) : undefined,
+        };
+
+        const hash = await walletClient.sendTransaction(transaction);
+        setTxnHash(hash);
+    };
+
+    return (
+        <form onSubmit={onSubmit}>
+            <p>Send to tRBTC address</p>
+            <input name="address" type="text" required placeholder="Address" />
+            <input name="amount" type="text" required placeholder="0.05" />
+            <button type="submit">Send</button>
+            <span data-testid="transaction-section-result-hash">{txnHash}</span>
+        </form>
+    );
+};
+
+import { abi } from '../../utils/abi'
+export const ContractWriteSection: FC = () => {
+    const result = useSimulateContract({
+        abi,
+        address: '0xdd9Fa9ddD68dd5aA023149Df488B4985ADC0e667',
+        functionName: 'mintArt',
+        args: [
+            "NameTest", // _name
+            "DescriptionTest",// _description
+            "ImageTest",// _image
+            100, // _price
+            "0xa2972322047F044B5889A3180D082111632E528F", // to
+            1004 // tokenId
+        ],
+    })
+
+    const { writeContract } = useWriteContract()
+
+    const mintToken = async () => {
+       try {
+
+            const result = await writeContract({
+                abi,
+                address: '0xdd9Fa9ddD68dd5aA023149Df488B4985ADC0e667',
+                functionName: 'mintArt',
+                args: [
+                    "NameTest", // _name
+                    "DescriptionTest",// _description
+                    "ImageTest",// _image
+                    100, // _price
+                    "0xa2972322047F044B5889A3180D082111632E528F", // to
+                    1005 // tokenId
+                ],
+            })
+            console.log(result)
+        } catch (error) {
+            console.error(error)
+           console.log(error)
+       }
+    }
+
+    return (
+        <button
+            onClick={mintToken}
+        >
+            mintToken
+        </button>
+    )
+};
+
 
 const queryClient = new QueryClient();
 
@@ -64,6 +161,8 @@ export default function Home() {
                   <DynamicWidget />
                 </div>
                 <AccountInfo />
+                <SendTransactionSection />
+                <ContractWriteSection />
                 <Dynamic/>
               </div>
             </DynamicWagmiConnector>
