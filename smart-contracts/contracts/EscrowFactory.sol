@@ -82,7 +82,7 @@ contract NFTMarketplaceEscrow is MockERC721, Roles {
     ) external {
         require(
             ownerOf(tokenId) == msg.sender,  // Use inherited ownerOf from MockERC721
-            "You are not the owner"
+            "You are not the owner of the token"
         );
         require(price > 0, "Price must be greater than zero");
         require(escrows[tokenId].seller == address(0), "Escrow already exists");
@@ -119,7 +119,7 @@ contract NFTMarketplaceEscrow is MockERC721, Roles {
     /**
      * @dev Completes the escrow, transferring the NFT to the buyer and funds to the seller.
      */
-    function completeEscrow(uint256 tokenId) external escrowExists(tokenId) {
+      function completeEscrow(uint256 tokenId) external escrowExists(tokenId) {
         Escrow storage escrow = escrows[tokenId];
         require(
             msg.sender == escrow.buyer || msg.sender == escrow.seller,
@@ -128,7 +128,8 @@ contract NFTMarketplaceEscrow is MockERC721, Roles {
         require(!escrow.isComplete, "Escrow already completed");
 
         // Transfer funds to seller
-        payable(escrow.seller).transfer(escrow.price);
+        (bool success, ) = escrow.seller.call{value: escrow.price}("");
+        require(success, "Payment transfer failed");
 
         // Transfer NFT to buyer
         safeTransferFrom(address(this), escrow.buyer, tokenId);  // Use inherited safeTransferFrom
@@ -137,6 +138,7 @@ contract NFTMarketplaceEscrow is MockERC721, Roles {
 
         emit EscrowCompleted(tokenId, escrow.seller, escrow.buyer);
     }
+
 
     /**
      * @dev Cancels the escrow and returns the NFT to the seller if the deal is not completed.
