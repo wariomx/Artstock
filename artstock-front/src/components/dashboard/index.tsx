@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Roles from "@/components/dashboard/roles";
 import { Button } from "@/components/ui/button";
-import TokenizeArt from "./tokenizeArt";
-import Roles from "./Roles";
+import ArtToken from "@/components/dashboard/artToken";
 
 export default function Dashboard() {
   const [tabsVisible, setTabsVisible] = useState(true);
@@ -22,7 +22,7 @@ export default function Dashboard() {
                 <TabsTrigger value="roles">Roles</TabsTrigger>
               </div>
               <div className="text-center px-4 py-2 h-1/3 border w-full">
-                <TabsTrigger value="art">Art Token</TabsTrigger>
+                <TabsTrigger value="art">Art Tokenization</TabsTrigger>
               </div>
 
               <Button
@@ -39,7 +39,7 @@ export default function Dashboard() {
             <Roles />
           </TabsContent>
           <TabsContent value="art">
-            <TokenizeArt />
+            <ArtToken />
           </TabsContent>
         </div>
       </Tabs>
