@@ -1,5 +1,7 @@
 # Artstock
 
+Artstock will revolutionize 
+
 Raw sketch
 Roles:
 - User (tokenizes/buys/sells art)
@@ -10,6 +12,7 @@ Properties of art NFT:
 - Title: string
 - Description: string 
 - Location (blank till guardian confirm): empty or string
+- Image IPFS link: string
 - Author: string
 - Guardian: empty or wallet address
 - Guardian Company name: empty or string
