@@ -2,86 +2,91 @@
 pragma solidity 0.8.24;
 
 contract Roles {
-    // Enum for the different roles in the system
-    enum Role {
-        None,      // No specific role
-        User,      // Regular user role
-        Guardian,  // Guardian role
-        Curator    // Curator role
-    }
+	enum Role {
+		None,
+		Seller,
+		Guardian,
+		Curator,
+		Buyer
+	}
 
-    // Define a User role structure
-    struct User {
-        address userAddress;  // Address of the user
-        string name;          // Name of the user
-    }
+	struct Seller {
+		address sellerAddress;
+		string name;
+	}
 
-    // Define a Guardian role structure
-    struct Guardian {
-        address guardianAddress; // Address of the guardian
-        string name;             // Name of the guardian
-        string location;         // Guardian's location
-    }
+	struct Guardian {
+		address guardianAddress;
+		string name;
+		string location;
+	}
 
-    // Define a Curator role structure
-    struct Curator {
-        address curatorAddress;  // Address of the curator
-    }
+	struct Curator {
+		address curatorAddress;
+		string name;
+		string location;
+		string specialization;
+	}
 
-    // Mappings to store roles and corresponding data
-    mapping(address => Role) public roles;
-    mapping(address => User) public users;
-    mapping(address => Guardian) public guardians;
-    mapping(address => Curator) public curators;
+	struct Buyer {
+		address buyerAddress;
+		string name;
+	}
 
-    // Event to log role assignment
-    event RoleAssigned(address indexed account, Role role);
+	mapping(address => Role) public roles;
+	mapping(address => Seller) public sellers;
+	mapping(address => Guardian) public guardians;
+	mapping(address => Curator) public curators;
+	mapping(address => Buyer) public buyers;
 
-    // Assign a User role
-    function assignUser(address _userAddress, string memory _name) external {
-        roles[_userAddress] = Role.User;
-        users[_userAddress] = User(_userAddress, _name);
-        emit RoleAssigned(_userAddress, Role.User);
-    }
+	event RoleAssigned(address indexed account, Role role);
 
-    // Assign a Guardian role
-    function assignGuardian(
-        address _guardianAddress,
-        string memory _name,
-        string memory _location
-    ) external {
-        roles[_guardianAddress] = Role.Guardian;
-        guardians[_guardianAddress] = Guardian(_guardianAddress, _name, _location);
-        emit RoleAssigned(_guardianAddress, Role.Guardian);
-    }
+	function assignSeller(
+		address _sellerAddress,
+		string memory _name
+	) external {
+		roles[_sellerAddress] = Role.Seller;
+		sellers[_sellerAddress] = Seller(_sellerAddress, _name);
+		emit RoleAssigned(_sellerAddress, Role.Seller);
+	}
 
-    // Assign a Curator role
-    function assignCurator(address _curatorAddress) external {
-        roles[_curatorAddress] = Role.Curator;
-        curators[_curatorAddress] = Curator(_curatorAddress);
-        emit RoleAssigned(_curatorAddress, Role.Curator);
-    }
+	function assignGuardian(
+		address _guardianAddress,
+		string memory _name,
+		string memory _location
+	) external {
+		roles[_guardianAddress] = Role.Guardian;
+		guardians[_guardianAddress] = Guardian(
+			_guardianAddress,
+			_name,
+			_location
+		);
+		emit RoleAssigned(_guardianAddress, Role.Guardian);
+	}
 
-    // Function to get the role of an address
-    function getRole(address _address) external view returns (Role) {
-        return roles[_address];
-    }
+	function assignCurator(
+		address _curatorAddress,
+		string memory _name,
+		string memory _location,
+		string memory _specialization
+	) external {
+		roles[_curatorAddress] = Role.Curator;
+		curators[_curatorAddress] = Curator(
+			_curatorAddress,
+			_name,
+			_location,
+			_specialization
+		);
+		emit RoleAssigned(_curatorAddress, Role.Curator);
+	}
 
-    // Function to retrieve User information
-    function getUser(address _address) external view returns (User memory) {
-        require(roles[_address] == Role.User, "Address is not a User");
-        return users[_address];
-    }
+	function assignBuyer(address _buyerAddress, string memory _name) external {
+		roles[_buyerAddress] = Role.Buyer;
+		buyers[_buyerAddress] = Buyer(_buyerAddress, _name);
+		emit RoleAssigned(_buyerAddress, Role.Buyer);
+	}
 
-    // Function to retrieve Guardian information
-    function getGuardian(address _address) external view returns (Guardian memory) {
-        require(roles[_address] == Role.Guardian, "Address is not a Guardian");
-        return guardians[_address];
-    }
-
-    // Function to retrieve Curator information
-    function getCurator(address _address) external view returns (Curator memory) {
-        require(roles[_address] == Role.Curator, "Address is not a Curator");
-        return curators[_address];
-    }
+	function getRole(address _address) external view returns (Role) {
+		return roles[_address];
+	}
 }
