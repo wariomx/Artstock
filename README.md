@@ -23,8 +23,6 @@ Properties of art NFT:
 - Guardian Website to verify: empty or string
 - CuratedBy: empty or wallet address of curator
 
-If time: Properties of guardian in soulbound NFT.
-
 Functions needed:
 - Mint NFT (user; becomes holder)
 - Confirm deposit of physical asset to guardian (guardian): attaches location
@@ -57,6 +55,10 @@ Functions needed:
 - The tokenization of art will allow for fractional ownership of art pieces, making art more accessible to a wider audience.
 
 - Works not only for art, but every physical goods (luxury goods, gold). 
+
+- Adding onramp to Dynamic in order to let a web2 user pay with fiat
+
+- Add the properties of a guardian/curator in a soulbound NFT.
 
 ## Todo before submission
 - Rename NEXT_PUBLIC_DYNAMIC_ENVIRONMENT_ID to DYNAMIC_ENVIRONMENT_ID (in code, env and above in readme)
