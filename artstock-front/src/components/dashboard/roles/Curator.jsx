@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { abi } from "../../../../utils/abi";
 import { useWriteContract } from "wagmi";
 
-export default function Curator() {
+export default function Curator({ address }) {
   const { writeContract } = useWriteContract();
   const contractSmart = process.env.NEXT_PUBLIC_SMART_CONTRACT 
 
