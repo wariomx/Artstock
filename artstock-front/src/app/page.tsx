@@ -7,7 +7,7 @@ export default function Home() {
   const defiArt = "LIQUIDITY FOR YOUR ART".split("");
 
   return (
-    <div className="bg-black">
+    <div className="bg-black text-white">
       <div
         className="w-full h-30 bg-image-1 bg-cover bg-center flex justify-center items-center p-[25px]
       "
